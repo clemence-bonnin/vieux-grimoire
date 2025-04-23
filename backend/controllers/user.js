@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 const User = require('../models/User');
+require('dotenv').config();
 
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
@@ -32,8 +32,8 @@ exports.signup = (req, res, next) => {
                         userId: user._id,
                         token: jwt.sign(
                             { userId: user._id },
-                            'RANDOM_TOKEN_SECRET',
-                            { expiresIn: '24h' }
+                            process.env.TOKEN_SECRET,
+                            { expiresIn: '7d' }
                         )
                     });
                 })
@@ -41,8 +41,6 @@ exports.signup = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));
  };
-
-
-
+  
 
  

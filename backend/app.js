@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const mongoose = require('mongoose');
 const path = require('path');
 const stuffRoutes = require('./routes/stuff');
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.use(cors())
 
 app.use('/api/books', stuffRoutes);
 app.use('/api/auth', userRoutes);
